@@ -84,7 +84,7 @@ int main()
 
 		}
 
-		if (location == "east"|| "e")
+		if (location == "east")
 		{
 			location = "east";
 			cout << "There is a ladder and a dark cave towards the back of the room.\n";
