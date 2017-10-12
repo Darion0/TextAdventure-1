@@ -64,7 +64,6 @@ int main()
 			{
 				cout << "You have found a small knife in the chest, you're attack is stronger now.\n";
 				weapon = "small knife";
-				std::cin >> userChoice;
 			}
 
 			else if (userChoice == "open door" || userChoice == "od")
