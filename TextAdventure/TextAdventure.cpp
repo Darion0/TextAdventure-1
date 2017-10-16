@@ -92,13 +92,13 @@ int main()
 			std::cout << "There is a chest in the middle of the room.\n";
 			std::cin >> userChoice;
 
-			if (userChoice == "open chest" || userChoice == "oc" && weapon != "small knife")
+			if (userChoice == "openchest" || userChoice == "oc" && weapon != "small knife")
 			{
 				std::cout << "You have found a small knife in the chest, your attack is stronger now.\n";
 				weapon = "small knife";
 			}
 
-			else if (userChoice == "open chest" || userChoice == "oc" && weapon == "small knife")
+			else if (userChoice == "openchest" || userChoice == "oc" && weapon == "small knife")
 			{
 				std::cout << "The chest is empty now.\n";
 			}
@@ -126,13 +126,13 @@ int main()
 			std::cout << "There is a ladder and a dark cave towards the back of the room.\n";
 			std::cin >> userChoice;
 
-			if (userChoice == "climb ladder" || userChoice == "c" || userChoice == "l" && weapon =="sword")
+			if (userChoice == "climbladder" || userChoice == "c" || userChoice == "l" && weapon =="sword")
 			{
 				std::cout << "You broke the lock at the top of the ladder and climed up.\n";
 				location = "forest";
 			}
 
-			else if (userChoice == "climb ladder" || userChoice == "c" || userChoice == "l" && weapon != "sword")
+			else if (userChoice == "climbladder" || userChoice == "c" || userChoice == "l" && weapon != "sword")
 			{
 				std::cout << "There is a lock at the top of the ladder that you can't break.\n";
 			}
@@ -298,12 +298,12 @@ int main()
 				location = "start";
 			}
 
-			else if (userChoice == "left" || userChoice == "left door" || userChoice == "l" || userChoice == "ld")
+			else if (userChoice == "left" || userChoice == "leftdoor" || userChoice == "l" || userChoice == "ld")
 			{
 				location = "left door";
 			}
 
-			else if (userChoice == "right"|| userChoice == "right door"|| userChoice == "r"|| userChoice == "rd")
+			else if (userChoice == "right"|| userChoice == "rightdoor"|| userChoice == "r"|| userChoice == "rd")
 			{
 				location = "right door";
 			}
@@ -428,13 +428,13 @@ int main()
 				location = "start";
 			}
 
-			if (userChoice == "attack" && weapon != "gun")
+			if (userChoice == "attack"|| userChoice == "a" && weapon != "gun")
 			{
 				std::cout << "You weren't strong enough to kill the monster with your " << weapon << ". It easily killed you.\n";
-				health = health - 3;
+				health = health - 20;
 			}
 
-			if (userChoice == "attack"|| userChoice == "a" && weapon == "gun")
+			else if (userChoice == "attack"|| userChoice == "a" && weapon == "gun")
 			{
 				std::cout << "You shot and killed the monster! As his body falls you see a door behind him.\n";
 				std::cin >> userChoice;
