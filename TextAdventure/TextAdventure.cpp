@@ -16,7 +16,7 @@ int main()
 	string weapon = "fist";
 	string keyend = "no";
 	string healingPotion = "no";
-	string win = "no";
+	bool win = false;
 	int monsterHealth = 1;
 	int attack;
 	int goblinHealth = 4;
@@ -511,7 +511,7 @@ int main()
 			cin >> userChoice;
 			if (userChoice == "door" && keyend == "yes" || userChoice == "d" && keyend == "yes")
 			{
-				win = "yes";
+				win = true;
 			}
 
 			else if (userChoice == "start" || userChoice == "beginning" || userChoice == "s")
@@ -539,7 +539,7 @@ int main()
 		
 
 
-		if (win == "yes")
+		if (win == true)
 		{
 			std::cout << "You walk out of the door in relief, but you still have no idea where you are.  As reality hits you with a smack, a cold sweat beads down your forehead. Congratulations! You have beat my game!";
 			userChoice = "q";
