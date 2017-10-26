@@ -17,6 +17,7 @@ int main()
 	string keyend = "no";
 	string healingPotion = "no";
 	string win = "no";
+	int monsterHealth = 1;
 	int attack;
 	int goblinHealth = 4;
 	int skeletonHealth = 20;
@@ -126,13 +127,13 @@ int main()
 			std::cout << "There is a ladder and a dark cave towards the back of the room.\n";
 			std::cin >> userChoice;
 
-			if (userChoice == "climbladder" || userChoice == "c" || userChoice == "l" && weapon =="sword")
+			if (userChoice == "ladder" && weapon == "sword" ||userChoice == "climbladder" && weapon == "sword" || userChoice == "c" && weapon == "sword" || userChoice == "l" && weapon =="sword")
 			{
 				std::cout << "You broke the lock at the top of the ladder and climed up.\n";
 				location = "forest";
 			}
 
-			else if (userChoice == "climbladder" || userChoice == "c" || userChoice == "l" && weapon != "sword")
+			else if (userChoice == "climbladder" && weapon != "sword" || userChoice == "c" && weapon != "sword" || userChoice == "l" && weapon != "sword"|| userChoice == "ladder" && weapon != "sword")
 			{
 				std::cout << "There is a lock at the top of the ladder that you can't break.\n";
 			}
@@ -170,7 +171,7 @@ int main()
 				location = "east";
 			}
 
-			if (userChoice == "cut" || userChoice == "c")
+			else if (userChoice == "cut" || userChoice == "c")
 			{
 				healingPotion = "yes";
 				std::cout << "You have cut through the branches and found a potion of healing. Press h to heal yourself.\n";
@@ -194,7 +195,7 @@ int main()
 				location = "east";
 			}
 
-			if (userChoice == "cut" || userChoice == "c")
+			else if (userChoice == "cut" || userChoice == "c")
 			{
 				std::cout << "The branches everywhere but back down the ladder to the east room are too thick to cut through.\n";
 				std::cin >> userChoice;
@@ -224,7 +225,7 @@ int main()
 				location = "east";
 			}
 
-			if (userChoice == "cut" || userChoice == "c")
+			else if (userChoice == "cut" || userChoice == "c")
 			{
 				std::cout << "The branches everywhere but back down the ladder to the east room are too thick to cut through.\n";
 				std::cin >> userChoice;
@@ -242,25 +243,49 @@ int main()
 			std::cout << "There is a skeleton in this room.  It approaches you to fight.\n";
 			std::cout << "The skeleton's health is " << skeletonHealth << ". Your health is " << health << ".\n";
 			std::cout << "The skeleton's attack is 2. Your attack is " << attack << ".\n";
+			cout << "Press f to fight or press e to go back to the east room.\n";
+			cin >> userChoice;
 
-			while (skeletonHealth > 0 && health >0)
+			if (userChoice == "fight"|| userChoice == "f")
+			{ 
+				while (skeletonHealth > 0 && health > 0 && location != "east")
+				{
+					std::cout << "You have a " << weapon << ". Press a to attack.\n";
+					std::cin >> userChoice;
+
+					if (userChoice == "east" || userChoice == "e")
+					{
+						cout << "You ran away from the fight.\n";
+						location = "east";
+					}
+					
+					else if (userChoice == "h" || userChoice == "health" && healingPotion == "yes")
+					{
+						cout << "You gained health.\n";
+						health = health + 15;
+						healingPotion = "used";
+					}
+
+					else if (userChoice == "a")
+					{
+						skeletonHealth = skeletonHealth - attack;
+						std::cout << "The skeleton's health is " << skeletonHealth << ". The skeleton attacks!\n";
+						health = health - 2;
+						std::cout << "Your health is " << health << ".\n";
+					}
+
+					else if (userChoice != "h" && healingPotion == "no" || healingPotion == "used")
+					{
+						std::cout << "I don't understand.\n";
+					}
+
+				}
+			}
+
+			else if (userChoice == "east" || userChoice == "b" || userChoice == "e" || userChoice == "back")
 			{
-				std::cout << "You have a " << weapon << ". Press a to attack.\n";
-				std::cin >> userChoice;
-
-				if (userChoice == "a")
-				{
-					skeletonHealth = skeletonHealth - attack;
-				}
-
-				else if (userChoice != "h" && healingPotion == "no" || healingPotion == "used")
-				{
-					std::cout << "I don't understand.\n";
-				}
-
-				std::cout << "The skeleton's health is " << skeletonHealth << ". The skeleton attacks!\n";
-				health = health - 2;
-				std::cout << "Your health is " << health << ".\n";
+				cout << "You ran away from the fight.\n";
+				location = "east";
 			}
 		}
 
@@ -273,6 +298,10 @@ int main()
 			{
 				std::cout << "You have obtained the gun.\n";
 				weapon = "gun";				
+			}
+			else if (userChoice == "east" || userChoice == "e")
+			{
+				location = "east";
 			}
 		}
 
@@ -354,25 +383,52 @@ int main()
 			std::cout << "There is a goblin in this room.  It approaches you to fight.\n";
 			std::cout << "The goblin's health is " << goblinHealth << ". Your health is " << health << ".\n";
 			std::cout << "The goblin's attack is 1. Your attack is " << attack << ".\n";
+			cout << "Press f to fight or press n to go back to the north room.\n";
+			cin >> userChoice;
 
-			while (goblinHealth > 0 && health >0)
+			if (userChoice == "fight" || userChoice == "f")
 			{
-				std::cout << "You have a " << weapon << ". Press a to attack.\n";
-				std::cin >> userChoice;
 
-				if (userChoice == "a")
+				while (goblinHealth > 0 && health > 0 && location != "north")
 				{
-					goblinHealth = goblinHealth - attack;
-				}
+					std::cout << "You have a " << weapon << ". Press a to attack.\n";
+					std::cin >> userChoice;
 
-				else if (userChoice != "h" && healingPotion == "no" || healingPotion == "used")
-				{
-					std::cout << "I don't understand.\n";
-				}
+					if (userChoice == "north" || userChoice == "n")
+					{
+						cout << "You ran away from the fight.\n";
+						location = "north";
+					}
+					
 
-				std::cout << "The goblin's health is " << goblinHealth << ". The goblin attacks!\n";
-				health = health - 1;
-				std::cout << "Your health is " << health << ".\n";
+					else if (userChoice == "a")
+					{
+						goblinHealth = goblinHealth - attack;
+						std::cout << "The goblin's health is " << goblinHealth << ". The goblin attacks!\n";
+						health = health - 1;
+						std::cout << "Your health is " << health << ".\n";
+					}
+
+					else if (userChoice == "h" || userChoice == "health" && healingPotion == "yes")
+					{
+						cout << "You gained health.\n";
+						health = health + 15;
+						healingPotion = "used";
+
+
+					}
+
+					else if (userChoice != "h" && healingPotion == "no" || healingPotion == "used")
+					{
+						std::cout << "I don't understand.\n";
+					}
+				}
+			}
+
+			else if (userChoice == "north" || userChoice == "b" || userChoice == "n" || userChoice == "back")
+			{
+				cout << "You ran away from the fight.\n";
+				location = "north";
 			}
 		}
 
@@ -417,7 +473,7 @@ int main()
 			}
 		}
 
-		if (location == "south")
+		if (location == "south" && monsterHealth > 0)
 		{
 			location = "south";
 			std::cout << "There is a huge monster in this room. It has huge claws and teeth, and looks very hard to kill. It approaches you. What do you do?\n";
@@ -428,27 +484,44 @@ int main()
 				location = "start";
 			}
 
-			if (userChoice == "attack"|| userChoice == "a" && weapon != "gun")
+			else if (userChoice == "attack" || userChoice == "a" && weapon != "gun")
 			{
 				std::cout << "You weren't strong enough to kill the monster with your " << weapon << ". It easily killed you.\n";
 				health = health - 20;
 			}
 
-			else if (userChoice == "attack"|| userChoice == "a" && weapon == "gun")
+			else if (userChoice == "attack" || userChoice == "a" && weapon == "gun")
 			{
 				std::cout << "You shot and killed the monster! As his body falls you see a door behind him.\n";
-				std::cin >> userChoice;
+				monsterHealth = monsterHealth - attack;
 
-				if (userChoice == "door" || userChoice == "d" && keyend == "yes")
-				{
-					win = "yes";
-				}
+			}
 
-				else if (userChoice == "door" || userChoice == "d" && keyend == "no")
-				{
-					std::cout << "The door is locked.\n";
-				}
+			else if (userChoice == "h" && healingPotion == "yes")
+			{
+				health = health + 15;
+				healingPotion = "used";
+				std::cout << "You have been healed! Your health is now " << health << ".\n";
+			}
+		}
+			
+		if (location == "south" && monsterHealth < 0)
+		{
+			std::cout << "You see a door behind the monster's body.\n";
+			cin >> userChoice;
+			if (userChoice == "door" && keyend == "yes" || userChoice == "d" && keyend == "yes")
+			{
+				win = "yes";
+			}
 
+			else if (userChoice == "start" || userChoice == "beginning" || userChoice == "s")
+			{
+				location = "start";
+			}
+
+			else if (userChoice == "door"  && keyend == "no" || userChoice == "d" && keyend == "no")
+			{
+				std::cout << "The door is locked.\n";
 			}
 
 			else if (userChoice == "h" && healingPotion == "yes")
@@ -462,8 +535,8 @@ int main()
 			{
 				std::cout << "I don't understand.\n";
 			}
-
 		}
+		
 
 
 		if (win == "yes")
